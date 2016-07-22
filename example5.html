@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Primer ejemplo</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="vue.js"></script>
+</head>
+<body id="app">
+<!--<div id="app"><h1>Bienvenido, {{ name }}</h1>-->
+<div class="row">
+    <div class="col-md-offset-4 col-md-4">
+
+        <template v-if="name && gender">
+            <!--<h2 v-if="name">Bienvenido, {{name}}</h2>  -->
+            <welcome-message :name="name" ></welcome-message>
+            <p >Gracias por ingresar</p>
+
+            <p>este es tu nombre al reves {{name.split('').reverse().join('')}}</p>
+        </template>
+
+        <template v-else>
+            <p>Escribe tu nombre Porfavor</p>
+        </template>
+
+
+        <form @submit.prevent="signUp()">
+
+            <input type="text" v-model="name" class="form-control">
+            <label>
+                Femenino:
+                <input type="radio" v-model="gender" value="f">
+            </label>
+
+            <label>
+                Masculino:
+
+                <input type="radio" v-model="gender" value="m">
+            </label>
+            <hello-world></hello-world>
+
+
+            <tech-exp tech="PHP" :years.sync="years_php"></tech-exp>
+            <tech-exp tech="JS" :years.sync="years_js"></tech-exp>
+            <!--<img src="vue.png" v-bind:title=" years_php ">-->
+            <!--<img src="vue.png" :title="years_php">-->
+            <hr>
+            <p v-show="name">
+                <button type="submit" class="btn btn-info" > Registrate</button>
+
+                <button type="submit" class="btn btn-info" @click.prevent="signUp('true')">
+                    Registrate y sal del sistema
+                </button>
+
+            </p>
+        </form>
+        <!--<p v-if="!name" class="alert alert-danger">-->
+        <p v-if="name =='' " class="alert alert-danger">
+            Este campo es obligatorio
+        </p>
+
+        <!--<h2 v-if="name">Bienvenido, {{name}}</h2>  -->
+        <!--<h2 v-show="name">Bienvenido, {{name}}</h2>
+        <input type="text" v-model="name" class="form-control">
+        <p v-show="name">Espero que este parrafo se oculto cuando no aya name</p>-->
+        <hr>
+        <div class="well">{{$data | json }}</div>
+    </div>
+</div>
+
+</body>
+
+<script type="text/template" id="welcome_template">
+    <h2 >
+        {{gender == 'm' ? 'Bienvenido':'Bienvenida'}}
+        , {{name}}</h2>
+
+</script>
+<script type="text/template" id="years_template">
+
+    <p>¿Cuantos años de experiencias tienes en {{ tech }}?</p>
+
+    <p>
+        Respuesta : <strong>{{years}}</strong>
+
+        <button type="button"
+                class="btn"
+                @click="experience('+')">+</button>
+
+        <button
+                type="button"
+                class="btn"
+                :disabled="years == 0"
+                @click="experience('-')">-</button>
+
+    </p>
+</script>
+
+<!-- script-->
+<script>
+
+          Vue.component('hello-world',{
+            template:'<h2>Hello world</h2>'
+
+         });
+
+          Vue.component('welcome-message',{
+              template:'#welcome_template',
+              props:{
+                  gender:{type:String , required : false, default:'m'},
+                  name:{type:String ,required:false}
+              }
+          });
+
+          Vue.component('tech-exp',{
+              template:'#years_template',
+              props:['tech','years'],
+              methods:{
+                  experience:function (sign) {
+                      if(sign == '+')
+                      {
+                          this.years++;
+                      }
+                      if(sign == '-'){
+//                    if(this.years_php > 0){
+                          this.years--;
+//                    }
+                      }
+
+                  },
+
+              }
+
+
+          });
+    new Vue({
+        el:'#app',
+        data:{
+            name:'',
+            years_php:0,
+            years_js:0
+        },
+        methods:{
+            signUp: function (logout){
+//               alert("Signing up ... ")
+                alert(this.name+" Signing up ... ")
+                if(logout){
+                    alert(this.name+"estas registrandote y saliendo")
+                }
+            },
+
+            calculateFontSize:function(){
+                return {'font-size' : 10+this.years_php+'px'}
+
+            }
+
+        },
+
+    });
+
+
+
+</script>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+<script src="vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+<h1 v-write="message"></h1>
+    <input v-model="message">
+
+    <form @submit="check">
+
+        <button type="submit" v-confirmed=" 'Are you sure????' ">Click me!</button>
+
+    </form>
+
+    <button v-example="age++ ">{{age}}</button>
+
+</div>
+
+</body>
+
+
+<script>
+
+Vue.directive('write',function(val){
+
+  this.el.textContent= val;
+
+});
+
+/*Vue.directive('confirmed', function(val){
+
+    this.el.addEventListener('click',function(e){
+        if (!confirm(val)){
+
+            e.preventDefault();
+
+            return;
+
+        }
+    });
+
+});*/
+
+Vue.directive('confirmed',{
+
+    isLiteral:true,
+    bind: function () {
+
+        this.el.addEventListener('click',function(e){
+            if (!confirm(this.expression)){
+
+                e.preventDefault();
+
+                return;
+
+            }
+        }.bind(this));
+
+
+    },
+});
+
+Vue.directive('example',{
+
+ acceptStatement: true,
+
+    update:function(val){
+
+        val();
+
+    }
+
+
+});
+
+
+
+    new Vue({
+       el:'#app',
+        data:{
+            message:'hi there',
+            age:1,
+        },
+
+        methods:{
+
+            check:function(){
+
+                alert('form was submited!!');
+            }
+
+        }
+    });
+
+
+</script>
+</html>

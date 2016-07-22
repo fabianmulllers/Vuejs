@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+<!--<h1>Skill : {{skill}}</h1>
+<input  type="text" v-model="points">-->
+<h1>{{first_name}} {{last_name}}</h1>
+<h2>{{full_name}}</h2>
+
+
+<hr>
+
+
+<input v-model="first_name" placeholder="first name">
+<input v-model="last_name" placeholder="last name">
+
+</body>
+
+
+
+<script>
+
+    new Vue({
+       el:'body',
+        data:{
+            points: 100,
+            first_name:'fabian',
+            last_name:'muller',
+            full_name:'fabian muller'
+
+        },
+        computed:{
+
+            skill:function(){
+
+                 if(this.points <= 100){
+                     return 'Beginner';
+                 }
+                return 'advanced';
+            }
+
+        },
+        watch:{
+
+            first_name:function(first){
+
+
+                this.full_name= first+ ' ' + this.last_name;
+            },
+            last_name:function(last){
+
+
+                this.full_name= this.first_name+ ' ' + last;
+            }
+
+
+        }
+    });
+
+</script>
+</html>

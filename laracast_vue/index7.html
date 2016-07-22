@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Title</title>
+
+    <style>
+        coupon{
+            display:block;
+            margin-bottom: 1em;
+        }
+
+    </style>
+    <script src="vue.js"></script>
+</head>
+<body  id="demo" class="container">
+
+
+<script id="coupon_template" type="x-template">
+    {{$data | json}}
+<input type="text" v-model="coupon" @blur="whenCouponHasBeenEntered">
+    <span class="label" v-text="message"></span>
+
+
+</script>
+
+<h1 v-show="coupon"> Your entered code : {{ coupon}}</h1>
+
+<coupon applied="setCoupon"></coupon>
+
+
+</body>
+
+
+
+<script>
+
+    Vue.component('coupon',{
+      template:'#coupon_template',
+
+        props:['applied'],
+
+        data:function(){
+
+            return{
+                coupon:'',
+                message:'',
+
+            };
+        },
+
+/*        ready:function(){
+
+            alert(this.applied);
+
+        },*/
+
+        methods:{
+            whenCouponHasBeenEntered:function(){
+                this.validate();
+
+            },
+
+
+            validate:function(){
+
+                if(this.coupon == 'FOOBAR'){
+
+                    /*var retorno = this.$parent.setCoupon(this.coupon);
+                    alert(retorno);*/
+                   var retorno= vm.setCoupon(this.coupon);
+                /* this.$dispatch('callMe', this.coupon);
+                    this.$parent['setCoupon'].call(this);*/
+                    return this.message = '20% off!';
+                }
+
+               return this.message = 'That coupon does not exist';
+            }
+
+
+        }
+
+
+    });
+
+
+
+
+
+  var vm =  new Vue({
+       el:'#demo',
+
+        methods:{
+
+            setCoupon:function( coupon){
+
+              this.$set('coupon',coupon);
+//                return "te retorno esto desde el setCoupon";
+            }
+        },
+
+
+        events:{
+
+            callMe:function(coupon){
+
+
+                return 'OK'
+
+            }
+        },
+
+
+    });
+
+
+</script>
+</html>

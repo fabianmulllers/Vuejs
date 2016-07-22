@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Primer ejemplo</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
+</head>
+<body>
+
+
+<div class="row">
+
+    <div class="col-md-offset-2 col-md-8">
+
+
+        <h1>Este es el ejemplo de una tabla y sus row</h1>
+
+            <table-users :heads="heads" :users="users" ></table-users>
+
+
+
+
+
+    </div>
+
+</div>
+
+<notification-user></notification-user>
+<template id="table_users_tpl">
+    <table class="table table-striped">
+
+        <thead>
+        <!--<th v-for="head in heads"> {{head}}</th>-->
+        <th>id</th>
+        <th>name</th>
+        <th>correo</th>
+        </thead>
+
+        <tbody>
+        <tr is="row-users" :users="users">
+        </tbody>
+
+
+
+    </table>
+
+</template>
+
+
+<template id="row_users_tpl">
+        <tr v-for="user in users">
+          <td>{{user.id}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.correo}}</td>
+        </tr>
+
+
+</template>
+
+
+<template id="notification_tpl">
+
+    <td >hola</td>
+</template>
+
+<pre>{{$data | json}}</pre>
+
+
+<!--vue.js-->
+
+
+<!--<script src="https://cdn.jsdelivr.net/vue.resource/0.9.3/vue-resource.min.js"></script>-->
+
+<script src="vue.js"></script>
+<script src="js/vue-resource.min.js"></script>
+<script src="main2.js"></script>
+</body>
+
+<script>
+
+
+</script>
+</html>

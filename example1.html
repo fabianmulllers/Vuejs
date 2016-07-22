@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Primer ejemplo</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<script src="vue.js"></script>
+</head>
+    <body id="app">
+    <!--<div id="app"><h1>Bienvenido, {{ name }}</h1>-->
+            <div class="row">
+                    <div class="col-md-offset-4 col-md-4">
+
+                        <template v-if="name && gender">
+                            <!--<h2 v-if="name">Bienvenido, {{name}}</h2>  -->
+                                <h2 >
+                                    {{gender == 'm' ? 'Bienvenido':'Bienvenida'}}
+                                    , {{name}}</h2>
+
+                                <p >Gracias por ingresar</p>
+
+                             <p>este es tu nombre al reves {{name.split('').reverse().join('')}}</p>
+                        </template>
+
+                        <template v-else>
+                            <p>Escribe tu nombre Porfavor</p>
+                        </template>
+                        <input type="text" v-model="name" class="form-control">
+                        <label> Selecciona tu genero</label>
+                        <select v-model="gender">
+                            <option value="" selected> Selecciona genero</option>
+                            <option value="f"> Femenino</option>
+                            <option value="m"> Masculino</option>
+
+                        </select>
+                        <!--<p v-if="!name" class="alert alert-danger">-->
+                        <p v-if="name =='' " class="alert alert-danger">
+                                Este campo es obligatorio
+                        </p>
+                        <p v-if="name.length < 2" class="alert alert-danger">
+                            El campo debe ser mayor a 2 caracteres
+                        </p>
+                        <p v-if="!gender" class="alert alert-danger">
+                            Debe seleccionar genero
+                        </p>
+                        <!--<h2 v-if="name">Bienvenido, {{name}}</h2>  -->
+                        <!--<h2 v-show="name">Bienvenido, {{name}}</h2>
+                        <input type="text" v-model="name" class="form-control">
+                        <p v-show="name">Espero que este parrafo se oculto cuando no aya name</p>-->
+                        <hr>
+                        <div class="well">{{$data | json }}</div>
+                    </div>
+            </div>
+
+    </body>
+
+
+<!-- script-->
+<script>
+
+
+    new Vue({
+        el:'#app',
+        data:{
+            name:'',
+        }
+
+    });
+
+
+
+</script>
+</html>

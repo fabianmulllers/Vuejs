@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Title</title>
+
+
+    <style>
+        .completed{
+            text-decoration: line-through;
+        }
+
+    </style>
+</head>
+
+<script src="vue.js"></script>
+
+
+<body>
+
+<div id="app">
+
+    <!--<tasks :list="tasks"></tasks>-->
+
+
+
+
+
+    <!--{{ $data | json}}-->
+</div>
+
+<template id="tasks_template">
+    <h1>
+        My Task
+        <spanv v-show="remaining">({{remaining}})</spanv>
+    </h1>
+    <ul v-show="list.length">
+
+        <li :class="{'completed':task.completed}"
+            v-for="task in list"
+            @click="task.completed= ! task.completed"
+        >{{ task.body }} <strong @click="deleteTask(task)">x</strong></li>
+    </ul>
+<p v-else>No tasks yet</p>
+
+    <button @click="clearCompleted">Clear Completed</button>
+</template>
+
+</body>
+<script src="js/main.js"></script>
+</html>

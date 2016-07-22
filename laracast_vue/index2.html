@@ -1,0 +1,60 @@
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+            "http://www.w3.org/TR/html4/loose.dtd">
+    <html>
+    <head>
+        <title>Title</title>
+    </head>
+    <style>
+
+        .error{
+            color:red
+        }
+
+    </style>
+
+    <body>
+
+
+
+            <div id="app">
+
+                <form>
+
+                    <span class="error" v-show="!message">
+
+                      Your must enter messager
+
+                     </span>
+                    <hr>
+                   <textarea  v-model="message"></textarea>
+
+                </form>
+
+                <button type="submit" v-show="message">
+                Send Message
+                </button>
+                <pre>{{$data | json}}</pre>
+
+            </div>
+
+    </body>
+
+
+
+    <script src="vue.js"></script>
+
+
+    <script>
+    new Vue({
+        el:"#app",
+        data:{
+            message:'',
+        }
+
+
+    })
+
+
+    </script>
+
+    </html>

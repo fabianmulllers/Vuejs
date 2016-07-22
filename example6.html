@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Primer ejemplo</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="vue.js"></script>
+
+</head>
+<body>
+
+ <ul >
+     <li v-for="note in notes">{{$index + 1}}: {{ note.note }} por {{note.autor}}</li>
+ </ul>
+
+ <form @submit.prevent="createNote" class="form">
+         <textarea v-model="new_note.note" class="form-control"></textarea>
+        <button type="submit" class="btn btn-warning">agregame</button>
+ </form>
+
+
+ <div class="well">
+     {{$data | json}}
+ </div>
+
+</body>
+
+<script>
+
+new Vue({
+
+    el:'body',
+    data: {
+        notes: [
+            {
+                'note': 'este es la primera nota del sistema',
+                'autor': 'es es el autor primero'
+            },
+            {
+
+                'note': 'este es la segunda nota del sistema',
+                'autor': 'es es el autor segundo'
+            },
+            {
+
+                'note': 'este es la tercera nota del sistema',
+                'autor': 'es es el autor tercero'
+            }
+        ],
+        new_note:{note: '' , autor:'new autor'}
+
+
+    },
+    methods:{
+
+        createNote: function (){
+            this.notes.push(this.new_note);
+            this.new_note={note: '' , autor:'new autor'};
+        }
+    }
+
+
+});
+</script>
+</html>

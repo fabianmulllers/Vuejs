@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Title</title>
+
+</head>
+<script src="vue.js"></script>
+
+<body>
+
+<div id="app">
+
+   <div v-for="plan in plans">
+
+       <plan :plan="plan" :plans="plans" :active.sync="active" inline-template>
+
+
+           <div>
+
+               <span>{{plan.name}}</span>
+               <span>   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+               <span>{{plan.price}}/month</span>
+               <button @click="setActivePlan"
+                       v-show="plan.name !== active.name">
+
+                   {{ isUpgrade ? 'Upgrade' : 'Downgrade '}}
+               </button>
+
+        <span v-else>
+
+            Current
+        </span>
+
+           </div>
+
+       </plan>
+   </div>
+
+
+
+
+</div>
+
+<!--<template id="plan_template" >
+
+
+</template>-->
+
+</body>
+
+
+<script>
+
+    Vue.component('plan',{
+
+
+        props: ['plan','plans','active'],
+
+        computed:{
+
+            isUpgrade:function(){
+
+                return this.plan.price > this.active.price;
+            }
+
+        },
+
+        methods:{
+
+            setActivePlan:function(){
+//                  alert(this.active);
+                this.active = this.plan;
+            }
+        }
+
+    })
+
+new Vue({
+ el:'#app',
+    data:{
+
+        plans:[
+
+            {name:'Enterprice',price:'100'},
+            {name:'Pro',price:'50'},
+            {name:'Personal',price:'10'},
+            {name:'Free',price:'0'}
+
+        ],
+
+        active: {}
+
+
+    },
+
+/*    components:{
+
+        plan:{
+//            template:'#plan_template',
+
+        }
+    }*/
+
+});
+
+
+
+</script>
+</html>
